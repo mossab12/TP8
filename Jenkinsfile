@@ -8,5 +8,10 @@ pipeline {
         sh '/usr/local/Cellar/gradle/4.10.2/libexec/bin/gradle jar'
       }
     }
+    stage('Mail Notification') {
+      steps {
+        mail(subject: 'Success', body: 'The build was successful', from: 'jenkins@jenkins.com', to: 'mossabinfo@gmail.com')
+      }
+    }
   }
 }
