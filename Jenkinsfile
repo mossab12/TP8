@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'gradle build'
+        sh '/usr/local/Cellar/gradle/4.10.2/libexec/bin/gradle build'
       }
     }
   }
