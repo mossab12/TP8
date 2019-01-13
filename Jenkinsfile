@@ -17,7 +17,7 @@ pipeline {
       parallel {
         stage('Code Analysis') {
           steps {
-            sh '/Users/mac/Downloads/sonar-scanner-3.2.0.1227-macosx/bin/sonar-scanner'
+            sh '/Users/mac/sonar-scanner/bin/sonar-scanner'
           }
         }
         stage('Test Reporting') {
