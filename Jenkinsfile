@@ -17,7 +17,8 @@ pipeline {
       parallel {
         stage('Code Analysis') {
           steps {
-            sh '/Users/mac/sonar-scanner/bin/sonar-scanner'
+            sh '/Users/mac/sonar-scanner/bin/sonar-scanner -X'
+            waitForQualityGate true
           }
         }
         stage('Test Reporting') {
