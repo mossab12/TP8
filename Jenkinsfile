@@ -13,5 +13,19 @@ pipeline {
         mail(subject: 'Success', body: 'The build was successful', from: 'jenkins@jenkins.com', to: 'mossabinfo@gmail.com')
       }
     }
+    stage('Code Analysis') {
+      parallel {
+        stage('Code Analysis') {
+          steps {
+            sh '/Users/mac/Downloads/sonar-scanner-3.2.0.1227-macosx/bin/sonar-scanner'
+          }
+        }
+        stage('Test Reporting') {
+          steps {
+            jacoco(maximumBranchCoverage: '70')
+          }
+        }
+      }
+    }
   }
 }
