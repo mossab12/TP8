@@ -17,7 +17,9 @@ pipeline {
       parallel {
         stage('Code Analysis') {
           steps {
-            sh '/usr/local/Cellar/gradle/4.10.2/libexec/bin/gradle sonar'
+            withSonarQubeEnv {
+              sh '/usr/local/Cellar/gradle/4.10.2/libexec/bin/gradle sonar'
+            }
             waitForQualityGate true
           }
         }
