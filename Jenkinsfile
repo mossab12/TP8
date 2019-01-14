@@ -41,11 +41,17 @@ pipeline {
       }
     }
     stage('Deployment') {
+      when {
+        branch 'master'
+      }
       steps {
         sh '/usr/local/Cellar/gradle/4.10.2/libexec/bin/gradle uploadArchives'
       }
     }
     stage('Slack Notification') {
+      when {
+        branch 'master'
+      }
       steps {
         slackSend(message: 'Hello this is jenkins')
       }
