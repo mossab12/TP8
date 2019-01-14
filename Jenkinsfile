@@ -29,7 +29,7 @@ pipeline {
       parallel {
         stage('Test Reporting') {
           steps {
-            jacoco(maximumBranchCoverage: '70')
+            jacoco()
           }
         }
         stage('Code Analysis') {
@@ -37,6 +37,7 @@ pipeline {
             withSonarQubeEnv('sonarqube') {
               sh '/Users/mac/sonar-scanner/bin/sonar-scanner'
             }
+
             waitForQualityGate true
           }
         }
