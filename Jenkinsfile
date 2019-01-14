@@ -15,9 +15,9 @@ pipeline {
 
       }
       steps {
-        sh 'gradle build'
-        sh 'gradle javadoc'
-        sh 'gradle jar'
+        sh '/usr/local/Cellar/gradle/4.10.2/libexec/bin/gradle build'
+        sh '/usr/local/Cellar/gradle/4.10.2/libexec/bin/gradle javadoc'
+        sh '/usr/local/Cellar/gradle/4.10.2/libexec/bin/gradle jar'
       }
     }
     stage('Mail Notification') {
