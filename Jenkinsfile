@@ -20,7 +20,7 @@ pipeline {
             withSonarQubeEnv('sonarqube') {
               sh '/usr/local/Cellar/gradle/4.10.2/libexec/bin/gradle sonar'
             }
-            waitForQualityGate true
+
           }
         }
         stage('Test Reporting') {
