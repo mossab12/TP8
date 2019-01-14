@@ -25,7 +25,7 @@ pipeline {
     }
     stage('Slack Notification') {
       steps {
-        slackSend(baseUrl: 'https://matrix-enh1669.slack.com', channel: 'matrix', message: 'Hello this is jenkins', teamDomain: 'matrix-enh1669', token: 'https://hooks.slack.com/services/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', tokenCredentialId: 'UEJNE2MN3')
+        slackSend(message: 'Hello this is jenkins')
       }
     }
   }
