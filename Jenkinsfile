@@ -38,7 +38,7 @@ pipeline {
               sh '/Users/mac/sonar-scanner/bin/sonar-scanner'
             }
 
-            waitForQualityGate true
+            waitForQualityGate false
           }
         }
       }
