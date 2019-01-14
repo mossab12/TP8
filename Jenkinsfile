@@ -13,18 +13,9 @@ pipeline {
         mail(subject: 'Success', body: 'The build was successful', from: 'jenkins@jenkins.com', to: 'mossabinfo@gmail.com')
       }
     }
-    stage('Code Analysis') {
-      parallel {
-        stage('Code Analysis') {
-          steps {
-            withSonarQubeEnv 'sonarqube'
-          }
-        }
-        stage('Test Reporting') {
-          steps {
-            jacoco(maximumBranchCoverage: '70')
-          }
-        }
+    stage('Test Reporting') {
+      steps {
+        jacoco(maximumBranchCoverage: '70')
       }
     }
     stage('Deployment') {
