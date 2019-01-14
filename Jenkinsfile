@@ -14,8 +14,17 @@ pipeline {
       }
     }
     stage('Test Reporting') {
-      steps {
-        jacoco(maximumBranchCoverage: '70')
+      parallel {
+        stage('Test Reporting') {
+          steps {
+            jacoco(maximumBranchCoverage: '70')
+          }
+        }
+        stage('Code Analysis') {
+          steps {
+            sh '/Users/mac/sonar-scanner/bin/sonar-scanner'
+          }
+        }
       }
     }
     stage('Deployment') {
