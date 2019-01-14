@@ -9,11 +9,11 @@ public class MatrixMathematics {
 	 * This class a matrix utility class and cannot be instantiated.
 	 */
 	private MatrixMathematics(){}
-	
-	
+
+
 	/**
 	 * Determinant of a square matrix
-	 * The following function find the determinant in a recursively. 
+	 * The following function find the determinant in a recursively.
 	 * @param matrix
 	 * @return
 	 * @throws NoSquareException
@@ -24,7 +24,7 @@ public class MatrixMathematics {
 		if (matrix.size() == 1){
 			return matrix.getValueAt(0, 0);
 		}
-			
+
 		if (matrix.size()==2) {
 			return (matrix.getValueAt(0, 0) * matrix.getValueAt(1, 1)) - ( matrix.getValueAt(0, 1) * matrix.getValueAt(1, 0));
 		}
@@ -48,27 +48,30 @@ public class MatrixMathematics {
 	/**
 	 * Creates a submatrix excluding the given row and column
 	 * @param matrix
-	 * @param excluding_row
-	 * @param excluding_col
+	 * @param excludingrow
+	 * @param excludingcol
 	 * @return
 	 */
-	public static Matrix createSubMatrix(Matrix matrix, int excluding_row, int excluding_col) {
+	public static Matrix createSubMatrix(Matrix matrix, int excludingrow, int excludingcol) {
+
 		Matrix mat = new Matrix(matrix.getNrows()-1, matrix.getNcols()-1);
 		int r = -1;
 		for (int i=0;i<matrix.getNrows();i++) {
-			if (i==excluding_row)
+			if (i==excludingrow) {
 				continue;
+			}
 				r++;
 				int c = -1;
 			for (int j=0;j<matrix.getNcols();j++) {
-				if (j==excluding_col)
+				if (j==excludingcol) {
 					continue;
+				}
 				mat.setValueAt(r, ++c, matrix.getValueAt(i, j));
 			}
 		}
 		return mat;
 	}
-	
+
 	/**
 	 * The cofactor of a matrix
 	 * @param matrix
@@ -82,9 +85,38 @@ public class MatrixMathematics {
 				mat.setValueAt(i, j, changeSign(i) * changeSign(j) * determinant(createSubMatrix(matrix, i, j)));
 			}
 		}
-		
+
 		return mat;
 	}
-	
-	
+
+
+	/**
+	 * Transpose of a matrix - Swap the columns with rows
+	 * @param matrix
+	 * @return
+	 */
+	public static Matrix transpose(Matrix matrix) {
+		Matrix transposedMatrix = new Matrix(matrix.getNcols(), matrix.getNrows());
+		for (int i=0;i<matrix.getNrows();i++) {
+			for (int j=0;j<matrix.getNcols();j++) {
+				transposedMatrix.setValueAt(j, i, matrix.getValueAt(i, j));
+			}
+		}
+		return transposedMatrix;
+	}
+
+	/**
+	 * Inverse of a matrix - A-1 * A = I where I is the identity matrix
+	 * A matrix that have inverse is called non-singular or invertible. If the matrix does not have inverse it is called singular.
+	 * For a singular matrix the values of the inverted matrix are either NAN or Infinity
+	 * Only square matrices have inverse and the following method will throw exception if the matrix is not square.
+	 * @param matrix
+	 * @return
+	 * @throws NoSquareException
+	 */
+	public static Matrix inverse(Matrix matrix) throws NoSquareException {
+		return (transpose(cofactor(matrix)).multiplyByConstant(1.0/determinant(matrix)));
+	}
+
+
 }
