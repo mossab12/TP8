@@ -18,7 +18,7 @@ pipeline {
         stage('Code Analysis') {
           steps {
             sh '/usr/local/Cellar/gradle/4.10.2/libexec/bin/gradle build'
-            waitForQualityGate true
+            waitForQualityGate false
           }
         }
         stage('Test Reporting') {
