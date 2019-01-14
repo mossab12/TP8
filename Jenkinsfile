@@ -18,7 +18,7 @@ pipeline {
         stage('Code Analysis') {
           steps {
             withSonarQubeEnv('sonarqube') {
-              sh '/usr/local/Cellar/gradle/4.10.2/libexec/bin/gradle sonar'
+              sh '/Users/mac/sonar-scanner/bin/sonar-scanner'
             }
 
           }
