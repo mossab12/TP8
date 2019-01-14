@@ -34,7 +34,9 @@ pipeline {
         }
         stage('Code Analysis') {
           steps {
-            sh '/Users/mac/sonar-scanner/bin/sonar-scanner'
+            withSonarQubeEnv('sonarqube') {
+              sh '/Users/mac/sonar-scanner/bin/sonar-scanner'
+            }
             waitForQualityGate true
           }
         }
