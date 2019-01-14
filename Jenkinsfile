@@ -1,5 +1,4 @@
 pipeline {
-  
   agent any
   stages {
     stage('Build') {
@@ -30,22 +29,32 @@ pipeline {
       parallel {
         stage('Test Reporting') {
           steps {
-            jacoco(maximumBranchCoverage: '70')
+            jacoco()
           }
         }
         stage('Code Analysis') {
           steps {
-            sh '/Users/mac/sonar-scanner/bin/sonar-scanner'
+            withSonarQubeEnv('sonarqube') {
+              sh '/Users/mac/sonar-scanner/bin/sonar-scanner'
+            }
+
+            waitForQualityGate true
           }
         }
       }
     }
     stage('Deployment') {
+      when {
+        branch 'master'
+      }
       steps {
         sh '/usr/local/Cellar/gradle/4.10.2/libexec/bin/gradle uploadArchives'
       }
     }
     stage('Slack Notification') {
+      when {
+        branch 'master'
+      }
       steps {
         slackSend(message: 'Hello this is jenkins')
       }
