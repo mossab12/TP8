@@ -17,8 +17,8 @@ pipeline {
       parallel {
         stage('Code Analysis') {
           steps {
-            sh '/usr/local/Cellar/gradle/4.10.2/libexec/bin/gradle build'
-            waitForQualityGate false
+            sh '/usr/local/Cellar/gradle/4.10.2/libexec/bin/gradle sonar'
+            waitForQualityGate true
           }
         }
         stage('Test Reporting') {
