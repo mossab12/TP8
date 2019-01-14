@@ -1,5 +1,4 @@
 pipeline {
-  
   agent any
   stages {
     stage('Build') {
@@ -36,6 +35,7 @@ pipeline {
         stage('Code Analysis') {
           steps {
             sh '/Users/mac/sonar-scanner/bin/sonar-scanner'
+            waitForQualityGate true
           }
         }
       }
