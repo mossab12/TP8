@@ -17,10 +17,7 @@ pipeline {
       parallel {
         stage('Code Analysis') {
           steps {
-            withSonarQubeEnv('sonarqube') {
-              sh '/Users/mac/sonar-scanner/bin/sonar-scanner'
-            }
-
+            withSonarQubeEnv 'sonarqube'
           }
         }
         stage('Test Reporting') {
@@ -28,6 +25,11 @@ pipeline {
             jacoco(maximumBranchCoverage: '70')
           }
         }
+      }
+    }
+    stage('Deployment') {
+      steps {
+        sh '/usr/local/Cellar/gradle/4.10.2/libexec/bin/gradle uploadArchives'
       }
     }
   }
