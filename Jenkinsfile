@@ -13,21 +13,28 @@ pipeline {
         mail(subject: 'Success', body: 'The build was successful', from: 'jenkins@jenkins.com', to: 'mossabinfo@gmail.com')
       }
     }
-    stage('Code Analysis') {
+    stage('Test Reporting') {
       parallel {
-        stage('Code Analysis') {
-          steps {
-            withSonarQubeEnv('sonarqube') {
-              sh '/Users/mac/sonar-scanner/bin/sonar-scanner'
-            }
-
-          }
-        }
         stage('Test Reporting') {
           steps {
             jacoco(maximumBranchCoverage: '70')
           }
         }
+        stage('Code Analysis') {
+          steps {
+            sh '/Users/mac/sonar-scanner/bin/sonar-scanner'
+          }
+        }
+      }
+    }
+    stage('Deployment') {
+      steps {
+        sh '/usr/local/Cellar/gradle/4.10.2/libexec/bin/gradle uploadArchives'
+      }
+    }
+    stage('Slack Notification') {
+      steps {
+        slackSend(message: 'Hello this is jenkins')
       }
     }
   }
