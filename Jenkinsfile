@@ -13,7 +13,7 @@ pipeline {
         mail(subject: 'Success', body: 'The build was successful', from: 'jenkins@jenkins.com', to: 'mossabinfo@gmail.com')
       }
     }
-    stage('Test Reporting') {
+    stage('Code Analysis') {
       parallel {
         stage('Test Reporting') {
           steps {
